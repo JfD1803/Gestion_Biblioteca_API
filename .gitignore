@@ -1,0 +1,17 @@
+# Dependencias
+node_modules/
+
+# Archivos de compilación de TypeScript
+dist/
+
+# Archivo de variables de entorno (credenciales sensibles)
+.env
+
+# Archivos de logs y temporales
+*.log
+npm-debug.log*
+
+# Archivos del sistema operativo o editor
+.DS_Store
+.idea/
+.vscode/
