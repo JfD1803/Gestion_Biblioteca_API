@@ -7,9 +7,7 @@ import { ObjectId } from "mongodb"; /* ---> mongodb: Es el driver nativo oficial
                                     validadores, middlewares y modelos */
 
 /*Se exporta la interface de author de Document: */
-
-export interface author extends Document {
-    _id?:ObjectId;
+export interface IAuthor extends Document {
     name: string;
     nationality: string;
     birthYear?: number;
@@ -17,7 +15,7 @@ export interface author extends Document {
     updatedAt?: Date;
 }
 
-const authorschema = new Schema<author>({
+const authorschema = new Schema<IAuthor>({
     name: { type: String, required: true, trim: true},
     nationality: { type: String, required: true, trim: true},
     birthYear: {type: Number},
@@ -25,4 +23,4 @@ const authorschema = new Schema<author>({
 { timestamps: true } // ---> Sirve para gestionar automaticamente la fecha y hora que se crean y modifican los documentos.
 );
 
-export const authorModel = model<author>("Authors", authorschema); // ---> Se exporta para que pueda ser utilizado en la capa repository
+export const authorModel = model<IAuthor>("Authors", authorschema); // ---> Se exporta para que pueda ser utilizado en la capa repository

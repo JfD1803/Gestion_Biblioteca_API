@@ -27,7 +27,7 @@ export class LoanController {
   // PUT /api/v1/loans/:id/return -> Marcar libro como devuelto
   returnLoan = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const returnedLoan = await this.service.returnLoan(id);
       res.status(200).json({
         success: true,
@@ -62,7 +62,7 @@ export class LoanController {
   // GET /api/v1/loans/:id -> Obtener préstamo por ID
   getLoanById = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const loan = await this.service.getLoanById(id);
       res.status(200).json({
         success: true,
@@ -79,7 +79,7 @@ export class LoanController {
   // DELETE /api/v1/loans/:id -> Eliminar registro de préstamo
   deleteLoan = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const deletedLoan = await this.service.deleteLoan(id);
       res.status(200).json({
         success: true,

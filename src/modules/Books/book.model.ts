@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose"; /* ---> mongoose es una libreria  de modelado de datos de objetos (ODM-Object Data Modeling)
+import { Schema, model, Document, Types } from "mongoose"; /* ---> mongoose es una libreria  de modelado de datos de objetos (ODM-Object Data Modeling)
                                                     para Node.js y MongoDB se utiliza más que todo para realizar esquémas (Schemas) para modelar 
                                                     datos en una aplicación */
 
@@ -7,9 +7,7 @@ import { ObjectId } from "mongodb"; /* ---> mongodb: Es el driver nativo oficial
                                     validadores, middlewares y modelos */
 
 /*Se exporta la interface de author de Document */
-
-export interface book extends Document {
-    _id?:ObjectId;
+export interface IBook extends Document {
     title: string;
     json: string;
     authorId: Types.ObjectId;
@@ -19,7 +17,7 @@ export interface book extends Document {
     updatedAt: Date;
 }
 
-const bookschema = new Schema<book>({
+const bookschema = new Schema<IBook>({
     title: { type: String, required: true, trim: true},
     json: { type: String, required: true, trim: true},
     authorId: { type: Schema.Types.ObjectId, ref: "Authors", required: true}, /* --->  Se usa Schema.Types.ObjectId, para realizar la consulta
@@ -30,4 +28,4 @@ const bookschema = new Schema<book>({
 { timestamps: true } // ---> Sirve para gestionar automaticamente la fecha y hora que se crean y modifican los documentos.
 );
 
-export const bookModel = model<book>("Books", bookschema); // ---> Se exporta para que pueda ser utilizado en la capa repository
+export const bookModel = model<IBook>("Books", bookschema); // ---> Se exporta para que pueda ser utilizado en la capa repository

@@ -1,5 +1,5 @@
 import { LoanRepository } from "./loan.repository";
-import { loan } from "./loan.model";
+import { ILoan } from "./loan.model";
 import { bookModel } from "../Books/book.model";
 
 export class LoanService {
@@ -10,7 +10,7 @@ export class LoanService {
   }
 
   // Registrar un préstamo
-  async createLoan(data: Partial<loan>): Promise<loan> {
+  async createLoan(data: Partial<ILoan>): Promise<ILoan> {
     if (!data.bookId) {
       throw new Error("El ID del libro (bookId) es obligatorio.");
     }
@@ -42,7 +42,7 @@ export class LoanService {
   }
 
   // Registrar devolución de un libro
-  async returnLoan(id: string): Promise<loan> {
+  async returnLoan(id: string): Promise<ILoan> {
     const existingLoan = await this.repository.findById(id);
     if (!existingLoan) {
       throw new Error(`El préstamo con ID '${id}' no existe.`);
@@ -65,12 +65,12 @@ export class LoanService {
   }
 
   // Obtener todos los préstamos
-  async getAllLoans(): Promise<loan[]> {
+  async getAllLoans(): Promise<ILoan[]> {
     return await this.repository.findAll();
   }
 
   // Obtener préstamo por ID
-  async getLoanById(id: string): Promise<loan> {
+  async getLoanById(id: string): Promise<ILoan> {
     const foundLoan = await this.repository.findById(id);
     if (!foundLoan) {
       throw new Error(`Préstamo con ID '${id}' no encontrado.`);
@@ -79,7 +79,7 @@ export class LoanService {
   }
 
   // Eliminar préstamo
-  async deleteLoan(id: string): Promise<loan> {
+  async deleteLoan(id: string): Promise<ILoan> {
     const foundLoan = await this.repository.findById(id);
     if (!foundLoan) {
       throw new Error(`Préstamo con ID '${id}' no encontrado.`);

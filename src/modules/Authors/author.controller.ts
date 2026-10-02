@@ -45,7 +45,7 @@ export class AuthorController {
   // GET /api/authors/:id
   getAuthorById = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const author = await this.service.getAuthorById(id);
       res.status(200).json({
         success: true,
@@ -62,7 +62,7 @@ export class AuthorController {
   // PUT /api/authors/:id
   updateAuthor = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const updateData = req.body;
       const updatedAuthor = await this.service.updateAuthor(id, updateData);
       res.status(200).json({
@@ -80,7 +80,7 @@ export class AuthorController {
   // DELETE /api/authors/:id
   deleteAuthor = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const deletedAuthor = await this.service.deleteAuthor(id);
       res.status(200).json({
         success: true,

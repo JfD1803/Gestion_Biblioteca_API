@@ -1,5 +1,5 @@
 import { AuthorRepository } from "./author.repository";
-import { author } from "./author.model";
+import { IAuthor } from "./author.model";
 
 export class AuthorService {
   private repository: AuthorRepository;
@@ -8,7 +8,7 @@ export class AuthorService {
     this.repository = new AuthorRepository();
   }
 
-  async createAuthor(data: Partial<author>): Promise<author> {
+  async createAuthor(data: Partial<IAuthor>): Promise<IAuthor> {
     // 1. Regla de negocio: validar que tenga un nombre
     if (!data.name) {
       throw new Error("El nombre del autor es obligatorio.");
@@ -23,11 +23,11 @@ export class AuthorService {
     return await this.repository.create(data);
   }
 
-  async getAllAuthors(): Promise<author[]> {
+  async getAllAuthors(): Promise<IAuthor[]> {
     return await this.repository.findAll();
   }
 
-  async getAuthorById(id: string): Promise<author> {
+  async getAuthorById(id: string): Promise<IAuthor> {
     const foundAuthor = await this.repository.findById(id);
     if (!foundAuthor) {
       throw new Error(`Autor con el ID ${id} no fue encontrado.`);
@@ -35,7 +35,7 @@ export class AuthorService {
     return foundAuthor;
   }
 
-  async updateAuthor(id: string, data: Partial<author>): Promise<author> {
+  async updateAuthor(id: string, data: Partial<IAuthor>): Promise<IAuthor> {
     // Validar primero si existe antes de intentar actualizar
     await this.getAuthorById(id);
     const updatedAuthor = await this.repository.update(id, data);
@@ -46,7 +46,7 @@ export class AuthorService {
     return updatedAuthor;
   }
 
-  async deleteAuthor(id: string): Promise<author> {
+  async deleteAuthor(id: string): Promise<IAuthor> {
     // Validar primero si existe antes de eliminar
     await this.getAuthorById(id);
     const deletedAuthor = await this.repository.delete(id);
@@ -57,7 +57,7 @@ export class AuthorService {
     return deletedAuthor;
   }
 
-  async searchAuthorsByName(term: string): Promise<author[]> {
+  async searchAuthorsByName(term: string): Promise<IAuthor[]> {
     if (!term || term.trim() === "") {
       return [];
     }

@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose"; /* ---> mongoose es una libreria  de modelado de datos de objetos (ODM-Object Data Modeling)
+import { Schema, model, Document, Types } from "mongoose"; /* ---> mongoose es una libreria  de modelado de datos de objetos (ODM-Object Data Modeling)
                                                     para Node.js y MongoDB se utiliza más que todo para realizar esquémas (Schemas) para modelar 
                                                     datos en una aplicación */
 
@@ -8,7 +8,7 @@ import { ObjectId } from "mongodb"; /* ---> mongodb: Es el driver nativo oficial
 import "../Books/book.model"; // ---> Carga el modulo Book en el registro de Mongoose
 
 /*Se exporta la interface de author de Document: */
-export interface loan extends Document {
+export interface ILoan extends Document {
   bookId: Types.ObjectId;
   userName: string;
   loanDate: Date;
@@ -18,7 +18,7 @@ export interface loan extends Document {
   updatedAt: Date;
 }
 
-const loanschema = new Schema<loan>(
+const loanschema = new Schema<ILoan>(
   {
     bookId: { 
       type: Schema.Types.ObjectId, 
@@ -46,4 +46,4 @@ const loanschema = new Schema<loan>(
   { timestamps: true } // ---> Gestiona automáticamente createdAt y updatedAt
 );
 
-export const loanModel = model<loan>("Loan", loanschema);
+export const loanModel = model<ILoan>("Loan", loanschema);

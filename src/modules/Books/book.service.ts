@@ -1,5 +1,5 @@
 import { BookRepository } from "./book.repository";
-import { book } from "./book.model";
+import { IBook } from "./book.model";
 
 export class BookService {
   private repository: BookRepository;
@@ -9,7 +9,7 @@ export class BookService {
   }
 
   // Crear un nuevo libro
-  async createBook(data: Partial<book>): Promise<book> {
+  async createBook(data: Partial<IBook>): Promise<IBook> {
     if (!data.title) {
       throw new Error("El título del libro es obligatorio.");
     }
@@ -28,12 +28,12 @@ export class BookService {
   }
 
   // Obtener todos los libros
-  async getAllBooks(): Promise<book[]> {
+  async getAllBooks(): Promise<IBook[]> {
     return await this.repository.findAll();
   }
 
   // Obtener un libro por su ID
-  async getBookById(id: string): Promise<book> {
+  async getBookById(id: string): Promise<IBook> {
     const foundBook = await this.repository.findById(id);
     if (!foundBook) {
       throw new Error(`El libro con ID '${id}' no fue encontrado.`);
@@ -42,7 +42,7 @@ export class BookService {
   }
 
   // Actualizar un libro por ID
-  async updateBook(id: string, data: Partial<book>): Promise<book> {
+  async updateBook(id: string, data: Partial<IBook>): Promise<IBook> {
     // Validar existencia previa
     await this.getBookById(id);
 
@@ -54,7 +54,7 @@ export class BookService {
   }
 
   // Eliminar un libro por ID
-  async deleteBook(id: string): Promise<book> {
+  async deleteBook(id: string): Promise<IBook> {
     // Validar existencia previa
     await this.getBookById(id);
 
@@ -66,7 +66,7 @@ export class BookService {
   }
 
   // Búsqueda parcial por título
-  async searchBooksByTitle(term: string): Promise<book[]> {
+  async searchBooksByTitle(term: string): Promise<IBook[]> {
     if (!term || term.trim() === "") {
       return [];
     }
@@ -74,7 +74,7 @@ export class BookService {
   }
 
   // Obtener libros por ID de autor
-  async getBooksByAuthor(authorId: string): Promise<book[]> {
+  async getBooksByAuthor(authorId: string): Promise<IBook[]> {
     if (!authorId) {
       throw new Error("El ID del autor es requerido para realizar la búsqueda.");
     }

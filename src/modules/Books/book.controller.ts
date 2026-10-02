@@ -45,7 +45,7 @@ export class BookController {
   // GET /api/v1/books/:id -> Obtener un libro por su ID
   getBookById = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const foundBook = await this.service.getBookById(id);
       res.status(200).json({
         success: true,
@@ -62,7 +62,7 @@ export class BookController {
   // PUT /api/v1/books/:id -> Actualizar un libro por ID
   updateBook = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const updateData = req.body;
       const updatedBook = await this.service.updateBook(id, updateData);
       res.status(200).json({
@@ -80,7 +80,7 @@ export class BookController {
   // DELETE /api/v1/books/:id -> Eliminar un libro por ID
   deleteBook = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const deletedBook = await this.service.deleteBook(id);
       res.status(200).json({
         success: true,
@@ -116,7 +116,7 @@ export class BookController {
   // GET /api/v1/books/author/:authorId -> Obtener libros por ID de autor
   getBooksByAuthor = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { authorId } = req.params;
+      const authorId = req.params.authorId as string;
       const books = await this.service.getBooksByAuthor(authorId);
       res.status(200).json({
         success: true,
