@@ -1,46 +1,41 @@
-import { genreModel, IGenre } from "./genre.model"; /* ---> Se importa archivo book.model.ts para usar las exportaciones, no es necesario realizar la importación de ObjectId 
-                                                             debido a que mongoose admisitras los Id's tras bambalinas */
+import { genreModel, IGenre } from "./genre.model";
 
 export class GenreRepository {
 
-  // Crear un nuevo genero
+  // Crear un nuevo género
   async create(data: Partial<IGenre>): Promise<IGenre> {
     return await genreModel.create(data);
   }
 
-  // Obtener todos los generos
+  // Obtener todos los géneros
   async findAll(): Promise<IGenre[]> {
-    return await genreModel.find().populate('authorId');
+    return await genreModel.find();
   }
 
-  // Buscar un genero por su ID
+  // Buscar un género por su ID
   async findById(id: string): Promise<IGenre | null> {
-    return await genreModel.findById(id).populate('authorId bookId');
+    return await genreModel.findById(id);
   }
 
-  // Actualizar genero por su ID 
+  // Actualizar género por su ID 
   async update(id: string, data: Partial<IGenre>): Promise<IGenre | null> {
     return await genreModel.findByIdAndUpdate(id, data, { new: true });
   }
 
-  // Eliminar genero por ID
-  async delete(id: string): Promise<IBook | null> {
+  // Eliminar género por ID (retorna IGenre en lugar de IBook)
+  async delete(id: string): Promise<IGenre | null> {
     return await genreModel.findByIdAndDelete(id);
   }
 
-  // Busqueda exacta con el genero del libro
-  async findBytitle(name: string): Promise<IGenre[]> {
-    return await genreModel.find({ name }).populate('authorId bookId'); /* --->En mongoose se utiliza el populate para realizar la union de documentos entre 
-                                                                   colecciones */
+  // Búsqueda exacta por el nombre del género
+  async findByName(name: string): Promise<IGenre[]> {
+    return await genreModel.find({ name });
   }
 
-  async searchByTitle(title: string): Promise<IBook[]> {
-    return await bookModel.find({
-      title: { $regex: title, $options: "i" }
-    }).populate('authorId'); // ---> 
-  }
-
-  async findByAuthorId(authorId: string): Promise<IBook[]> {
-    return await bookModel.find({ authorId }).populate('authorId');
+  // Búsqueda parcial por nombre del género (case-insensitive con regex)
+  async searchByName(name: string): Promise<IGenre[]> {
+    return await genreModel.find({
+      name: { $regex: name, $options: "i" }
+    });
   }
 }
