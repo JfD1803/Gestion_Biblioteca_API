@@ -25,4 +25,4 @@ const genreschema = new Schema<IGenre>({
 { timestamps: true } // ---> Sirve para gestionar automaticamente la fecha y hora que se crean y modifican los documentos.
 );
 
-export const genreModel = model<IGenre>("Genres", bookschema); // ---> Se exporta para que pueda ser utilizado en la capa repository
+export const genreModel = model<IGenre>("Genres", genreschema); // ---> Se exporta para que pueda ser utilizado en la capa repository
