@@ -31,7 +31,8 @@ export class GenreController {
   // Obtener un género por ID
   public getById = async (req: Request, res: Response): Promise<void> => {
     try {
-      const genre = await this.service.getGenreById(req.params.id);
+      const id = req.params.id as string;
+      const genre = await this.service.getGenreById(id);
       res.status(200).json(genre);
     } catch (error: any) {
       res.status(404).json({ message: error.message });
@@ -41,7 +42,8 @@ export class GenreController {
   // Actualizar un género por ID
   public update = async (req: Request, res: Response): Promise<void> => {
     try {
-      const updatedGenre = await this.service.updateGenre(req.params.id, req.body);
+      const id = req.params.id as string;
+      const updatedGenre = await this.service.updateGenre(id, req.body);
       res.status(200).json(updatedGenre);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
@@ -51,7 +53,8 @@ export class GenreController {
   // Eliminar un género por ID
   public delete = async (req: Request, res: Response): Promise<void> => {
     try {
-      const deletedGenre = await this.service.deleteGenre(req.params.id);
+      const id = req.params.id as string;
+      const deletedGenre = await this.service.deleteGenre(id);
       res.status(200).json({ message: "Género eliminado correctamente", deletedGenre });
     } catch (error: any) {
       res.status(404).json({ message: error.message });
